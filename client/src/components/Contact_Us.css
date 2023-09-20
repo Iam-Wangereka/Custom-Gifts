@@ -1,0 +1,41 @@
+.container {
+    border-radius: 5px;
+    background-color: rgb(247, 197, 104);
+    padding: 20px;
+}
+.container input, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical 
+}
+.container button {
+    background-color: rgb(250, 211, 140);
+    color: black;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.container button:hover {
+    background: rgb(252, 194, 86);
+}
+.container input[type=submit]:hover {
+    background-color: rgb(252, 179, 44);
+}
+.social-icons a{
+    padding-left: 500px;
+    align-items: center;
+}
+.social-icons img{
+    width: 80px;
+    display: inline-block;
+    margin: 25px 25px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
