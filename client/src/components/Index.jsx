@@ -5,7 +5,7 @@ const Main = () => {
     return (
       <>
       <main>
-            <p>Custom Gifts At Your Service</p>
+            <h1>Custom Gifts At Your Service</h1>
         </main>
         <div className="home-icon">
            <img src={home} alt='home' />

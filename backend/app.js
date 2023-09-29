@@ -13,18 +13,18 @@ app.use(cors());
 
 app.get('/', (request, response) => {
 
-    response.send("working")
+    response.send("working");
 
 });
 
     app.post('/send',
     [
 
-        check('email').isEmail(),
-        check('subject').not().isEmpty(),
-        check('message').not().isEmpty(),
-      ], 
-      (request, response) => {
+      check('email').isEmail(),
+      check('subject').not().isEmpty(),
+      check('message').not().isEmpty(),
+    ],
+    (request, response) => {
         const {firstname, lastname, email, mobile, subject, message} = request.body;
         console.log(email)
         const errors = validationResult(request);
@@ -43,7 +43,63 @@ app.get('/', (request, response) => {
             from: email,
             to: process.env.EMAIL_USERNAME,
             subject: subject,
-            text: `Name: ${firstname} ${lastname}\nEmail: ${email}\nMessage: ${message}\nMobile: ${mobile}`,
+            html: `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <title>Email</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                    }
+                    .email-container {
+                        max-width: 600px;
+                        margin: 0 auto;
+                        padding: 20px;
+                    }
+                    .email-header {
+                        background-color: rgb(247, 197, 104);
+                        color: black;
+                        padding: 10px;
+                        text-align: center;
+                    }
+                    .email-content {
+                        padding: 20px;
+                    }
+                    .email-container {
+                      max-width: 600px;
+                      margin: 0 auto;
+                      padding: 20px;
+                      background-color: rgb(250, 211, 140);
+                      border: 1px solid #ddd;
+                  }
+                  .email-content p {
+                      margin: 0;
+                      padding: 5px 0;
+                      font-size: 16px;
+                  }
+              
+                  /* Strong text (for labels) */
+                  .email-content strong {
+                      font-weight: bold;
+                  }
+                </style>
+            </head>
+            <body>
+                <div class="email-container">
+                    <div class="email-header">
+                        <h1>${subject}</h1>
+                    </div>
+                    <div class="email-content">
+                        <p><strong>Name:</strong> ${firstname} ${lastname}</p>
+                        <p><strong>Email:</strong> ${email}</p>
+                        <p><strong>Message:</strong> ${message}</p>
+                        <p><strong>Mobile:</strong> ${mobile}</>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `,
 
           };
       
@@ -53,13 +109,11 @@ app.get('/', (request, response) => {
               response.status(500).send('Internal Server Error');
             } else {
               console.log('Email sent: ' + info.response);
+              return response.json({message: "Your Message was Successfully Sent!"})
             }
           });
         }
-        return response.json({message: "Your Message was Successfully Sent!"})
-
-
-      });
+              });
 
 
 
